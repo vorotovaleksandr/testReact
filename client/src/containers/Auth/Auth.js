@@ -36,7 +36,7 @@ class Auth extends Component {
       data: authData
     } ).then( response => {
       localStorage.setItem( 'token', response.data.token );
-      document.cookie = "token"+"=" + response.data.token;
+      document.cookie = "token" + "=" + response.data.token;
     } ).catch( error => {
       this.setState( {
         popUpShow: {
@@ -59,48 +59,47 @@ class Auth extends Component {
     } );
   };
 
-
   render() {
     const popUp = this.state.popUpShow;
     return (
       <div className={classes.auth} onClick={this.popupClose}>
         <h3>Login</h3>
-          <div className={classes.auth__form}>
-            <Form.Group controlId="formBasicEmail">
-              <Form.Label>Email address</Form.Label>
-              <Form.Control
-                type="email"
-                placeholder="Enter email"
-                onChange={event => this.onChangeInput( event, 'email' )}
-              />
-            </Form.Group>
+        <div className={classes.auth__form}>
+          <Form.Group controlId="formBasicEmail">
+            <Form.Label>Email address</Form.Label>
+            <Form.Control
+              type="email"
+              placeholder="Enter email"
+              onChange={event => this.onChangeInput( event, 'email' )}
+            />
+          </Form.Group>
 
-            <Form.Group controlId="formBasicPassword">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="Password"
-                onChange={event => this.onChangeInput( event, 'password' )}
-              />
-            </Form.Group>
-            <Button
-              variant="primary"
-              type="submit"
-              onClick={() => this.loginHandler()}
+          <Form.Group controlId="formBasicPassword">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Password"
+              onChange={event => this.onChangeInput( event, 'password' )}
+            />
+          </Form.Group>
+          <Button
+            variant="primary"
+            type="submit"
+            onClick={() => this.loginHandler()}
+          >
+            Login
+          </Button>
+          <Button
+            variant="primary"
+            type="submit"
+          >
+            <NavLink
+              to="registrate"
             >
-              Login
-            </Button>
-            <Button
-              variant="primary"
-              type="submit"
-            >
-              <NavLink
-                to="registrate"
-              >
-                Registration
-              </NavLink>
-            </Button>
-          </div>
+              Registration
+            </NavLink>
+          </Button>
+        </div>
         <div className={cx( classes.showPopUp, !popUp.valid ? classes.showPopUpTrue : classes.showPopUpFalse )}>
           <p>{popUp.value}</p>
           <i className="fa fa-angle-down" aria-hidden="true" onClick={this.popupClose}/></div>

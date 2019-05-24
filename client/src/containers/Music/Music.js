@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import axios from "axios";
-import classes from "../Music/Music.css";
-import { ListGroup } from "react-bootstrap";
+import classes from './Music.css';
+import axios from 'axios';
+import { ListGroup } from 'react-bootstrap'
 
 const defaultState = {
   popUpShow: {
@@ -14,17 +14,16 @@ const defaultState = {
   }]
 };
 
-class MyMusic extends Component {
+class Music extends Component {
   state = defaultState;
   buffer = this.state.myMusic;
 
   componentDidMount() {
-    const email = localStorage.getItem( 'email' );
     axios( {
       url: 'http://localhost:5000/music/getall',
       method: 'POST',
       data: {
-        email
+        email: 'Start'
       }
     } ).then( req => {
       console.log( '-----req.data', req.data );
@@ -45,13 +44,31 @@ class MyMusic extends Component {
     } )
   }
 
+  musicLike = ( item ) => {
+    console.log( '-----item', item.musicValue );
+    const email = localStorage.getItem( 'email' );
+    axios( {
+      url: 'http://localhost:5000/music/update',
+      method: 'POST',
+      data: {
+        email,
+        value: item.musicValue
+      }
+    } ).then( req => {
+
+
+    } ).catch( () => {
+      console.log( 'error' );
+      this.setState( {loading: false, redirect: true} );
+    } )
+  };
+
   render() {
     const row = this.buffer;
     return (
       <div className={classes.QuizList}>
         <div>
-          <h1> My Music List </h1>
-          {console.log( '-----tc', row )}
+          <h1> Music List </h1>
           {row.map( ( item, index ) => {
             return (
               <ListGroup as="ul" className="homeDnd__secondUl">
@@ -63,6 +80,7 @@ class MyMusic extends Component {
                   <i
                     className="fa fa-heart"
                     aria-hidden="true"
+                    onClick={() => this.musicLike( item )}
                   />
                 </ListGroup.Item>
               </ListGroup>
@@ -74,4 +92,4 @@ class MyMusic extends Component {
   }
 }
 
-export default MyMusic;
+export default Music;

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Layout from './hoc/Layout/layout';
 import { Route, Switch } from 'react-router-dom'
-import QuizList from './containers/QuizList/QuizList';
+import Music from './containers/Music/Music';
 import Auth from './containers/Auth/Auth';
 import Registrate from './containers/Registrate/Registrate'
 import MyMusic from './containers/MyMusic/MyMusic';
@@ -18,7 +18,7 @@ class App extends Component {
           <Route path="/registrate" component={Registrate}/>
           <Route path="/mymusic" component={withAuth(MyMusic)}/>
           <Route path="/myprofile" component={withAuth(MyProfile)}/>
-          <Route path="/" component={withAuth(QuizList)}/>
+          <Route path="/" component={withAuth(Music)}/>
         </Switch>
       </Layout>
     );
