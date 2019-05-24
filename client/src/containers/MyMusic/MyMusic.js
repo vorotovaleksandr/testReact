@@ -54,10 +54,10 @@ class MyMusic extends Component {
           {console.log( '-----tc', row )}
           {row.map( ( item, index ) => {
             return (
-              <ListGroup as="ul" className="homeDnd__secondUl">
+              <ListGroup key={`12${index}`} as="ul" className="homeDnd__secondUl">
                 <ListGroup.Item
                   as="li"
-                  key={index}
+                  key={`11${index}`}
                 >
                   {item.musicValue}
                   <i

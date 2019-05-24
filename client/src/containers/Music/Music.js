@@ -71,7 +71,7 @@ class Music extends Component {
           <h1> Music List </h1>
           {row.map( ( item, index ) => {
             return (
-              <ListGroup as="ul" className="homeDnd__secondUl">
+              <ListGroup key={index} as="ul" className="homeDnd__secondUl">
                 <ListGroup.Item
                   as="li"
                   key={index}

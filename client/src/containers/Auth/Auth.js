@@ -3,9 +3,10 @@ import classes from './Auth.css';
 import axios from 'axios';
 import { Button, Form } from 'react-bootstrap';
 import cx from 'classnames';
-import { NavLink } from 'react-router-dom';
+import { NavLink,Redirect } from 'react-router-dom';
 
 const defaultState = {
+  redirect: false,
   popUpShow: {
     valid: false,
     value: ''
@@ -37,11 +38,13 @@ class Auth extends Component {
     } ).then( response => {
       localStorage.setItem( 'token', response.data.token );
       document.cookie = "token" + "=" + response.data.token;
-    } ).catch( error => {
+      this.setState({redirect: true})
+
+    } ).catch( req => {
       this.setState( {
         popUpShow: {
           valid: true,
-          value: error
+          value: req.response.data.message
         }
       } );
     } )
@@ -58,9 +61,15 @@ class Auth extends Component {
       },
     } );
   };
+  popupClose = () => {
+    this.setState( {popUpShow: false} );
+  };
 
   render() {
     const popUp = this.state.popUpShow;
+    if (this.state.redirect) {
+      return <Redirect to="/"/>;
+    }
     return (
       <div className={classes.auth} onClick={this.popupClose}>
         <h3>Login</h3>
@@ -73,7 +82,6 @@ class Auth extends Component {
               onChange={event => this.onChangeInput( event, 'email' )}
             />
           </Form.Group>
-
           <Form.Group controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
             <Form.Control

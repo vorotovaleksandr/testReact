@@ -6,6 +6,7 @@ import cx from 'classnames';
 import { NavLink, Redirect } from 'react-router-dom';
 
 const defaultState = {
+  redirect: false,
   popUpShow: {
     valid: false,
     value: ''
@@ -40,12 +41,12 @@ class Registrate extends Component {
       method: 'POST',
       data: authData
     } ).then( response => {
-      return <Redirect to="/login"/>;
-    } ).catch( res => {
+      this.setState({redirect: true})
+    } ).catch( req => {
       this.setState( {
         popUpShow: {
           valid: true,
-          value: res
+          value: req.response.data.message
         }
       } );
     } )
@@ -60,11 +61,16 @@ class Registrate extends Component {
         },
       },
     } );
-    console.log( '-----this.state', this.state );
+  };
+  popupClose = () => {
+    this.setState( {popUpShow: false} );
   };
 
   render() {
     const popUp = this.state.popUpShow;
+    if (this.state.redirect) {
+      return <Redirect to="/login"/>;
+    }
     return (
       <div className={classes.registrate} onClick={this.popupClose}>
         <h3>Registrate</h3>
