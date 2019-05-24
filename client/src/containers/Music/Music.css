@@ -24,3 +24,24 @@
 .QuizList li a:hover {    
     color: rgb(160, 160, 160);
 }
+.showPopUp {
+    width: 200px;
+    height: 70px;
+    background-color: #313131;
+    margin-bottom: 50px;
+    box-shadow: 3px 3px 8px 4px #313131;
+    opacity: 0;
+    color: #f5f5f5;
+    border-radius: 4px;
+    transition: opacity 0.5s; }
+.showPopUp p {
+    margin: 10px; }
+.showPopUp i {
+    margin-left: auto;
+    margin-right: 3px; }
+.showPopUpFalse {
+    display: flex;
+    opacity: 1; }
+a {
+    color:white;
+}

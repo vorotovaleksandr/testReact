@@ -51,7 +51,6 @@ class MyMusic extends Component {
       <div className={classes.QuizList}>
         <div>
           <h1> My Music List </h1>
-          {console.log( '-----tc', row )}
           {row.map( ( item, index ) => {
             return (
               <ListGroup key={`12${index}`} as="ul" className="homeDnd__secondUl">

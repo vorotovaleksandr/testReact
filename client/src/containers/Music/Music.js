@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import classes from './Music.css';
 import axios from 'axios';
 import { ListGroup } from 'react-bootstrap'
+import cx from 'classnames';
 
 const defaultState = {
   popUpShow: {
@@ -26,7 +27,6 @@ class Music extends Component {
         email: 'Start'
       }
     } ).then( req => {
-      console.log( '-----req.data', req.data );
       req.data.forEach(
         ( item ) => {
           this.buffer.push(
@@ -59,12 +59,12 @@ class Music extends Component {
 
     } ).catch( () => {
       console.log( 'error' );
-      this.setState( {loading: false, redirect: true} );
     } )
   };
 
   render() {
     const row = this.buffer;
+    const popUp = this.state.popUpShow;
     return (
       <div className={classes.QuizList}>
         <div>
@@ -87,6 +87,9 @@ class Music extends Component {
             );
           } )}
         </div>
+        <div className={cx( classes.showPopUp, !popUp.valid ? classes.showPopUpTrue : classes.showPopUpFalse )}>
+        <p>{popUp.value}</p>
+        <i className="fa fa-angle-down" aria-hidden="true" onClick={this.popupClose}/></div>
       </div>
     )
   }
